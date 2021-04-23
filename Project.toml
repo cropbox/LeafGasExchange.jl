@@ -8,3 +8,4 @@ Cropbox = "a904b226-abf1-11e9-2713-059ba252a964"
 
 [compat]
 Cropbox = "0.3"
+julia = "1.6"
