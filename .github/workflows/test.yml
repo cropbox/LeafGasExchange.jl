@@ -22,6 +22,8 @@ jobs:
           version: ${{ matrix.version }}
           arch: ${{ matrix.arch }}
       - uses: julia-actions/julia-buildpkg@latest
+        env:
+          PYTHON: ""
       - uses: julia-actions/julia-runtest@latest
         with:
           depwarn: error
