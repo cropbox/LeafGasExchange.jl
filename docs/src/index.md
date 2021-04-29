@@ -11,6 +11,10 @@ Pkg.add("LeafGasExchange")
 
 ## Getting Started
 
+```@setup aci
+ENV["UNITFUL_FANCY_EXPONENTS"] = true
+```
+
 ```@example aci
 using Cropbox
 using LeafGasExchange
