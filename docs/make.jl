@@ -6,7 +6,7 @@ makedocs(
         prettyurls = get(ENV, "CI", nothing) == "true",
         canonical = "https://cropbox.github.io/LeafGasExchange.jl/stable/",
         assets = ["assets/favicon.ico"],
-        analytics = "UA-192782823-2",
+        analytics = "UA-192782823-1",
     ),
     sitename = "LeafGasExchange.jl",
     pages = [
