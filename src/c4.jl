@@ -41,8 +41,8 @@ end
     Haj: activation_enthalpy_for_electron_transport => 32.8 ~ preserve(u"kJ/mol", parameter)
     Hdj: deactivation_enthalpy_for_electron_transport => 220 ~ preserve(u"kJ/mol", parameter)
     Toj: optimum_temperature_for_electron_transport => 33.6 ~ preserve(u"°C", parameter)
-    Jmax(Jm25, kTpeak, Haj, Hdj, Toj, kN): maximum_electron_transport_rate => begin
-        Jm25 * kTpeak(Haj, Hdj, Toj) * kN
+    Jmax(Jm25, kTpeakT, Haj, Hdj, Toj, kN): maximum_electron_transport_rate => begin
+        Jm25 * kTpeakT(Haj, Hdj, Toj) * kN
     end ~ track(u"μmol/m^2/s" #= Electron =#)
 
     # θ: sharpness of transition from light limitation to light saturation

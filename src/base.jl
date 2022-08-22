@@ -9,10 +9,16 @@
         exp(Ea * (T - Tb) / (u"R" * Tk * Tbk))
     end ~ call
 
-    kTpeak(Tk, Tbk, kT; Ha(u"kJ/mol"), Hd(u"kJ/mol"), To(u"K")): peaked_function => begin
-        R = u"R"
-        ΔS = Hd / To + R * log(Ha / (Hd - Ha))
-        kT(Ha) * (1 + exp((ΔS*Tbk - Hd) / (R*Tbk))) / (1 + exp((ΔS*Tk - Hd) / (R*Tk)))
+    kTpeak(Tk, Tbk, kT; Ha(u"kJ/mol"), Hd(u"kJ/mol"), ΔS(u"J/mol/K")): peaked_function => begin
+        kT(Ha) * (1 + exp((ΔS*Tbk - Hd) / (u"R"*Tbk))) / (1 + exp((ΔS*Tk - Hd) / (u"R"*Tk)))
+    end ~ call
+
+    ΔS(; Ha(u"kJ/mol"), Hd(u"kJ/mol"), To(u"K")): entropy_factor => begin
+        Hd / To + u"R" * log(Ha / (Hd - Ha))
+    end ~ call(u"J/mol/K")
+
+    kTpeakT(kTpeak, ΔS; Ha(u"kJ/mol"), Hd(u"kJ/mol"), To(u"K")): peaked_function_with_optimal_temperature => begin
+        kTpeak(Ha, Hd, ΔS(Ha, Hd, To))
     end ~ call
 
     Q10 => 2 ~ preserve(parameter)
