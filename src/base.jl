@@ -9,8 +9,8 @@
         exp(Ea * (T - Tb) / (u"R" * Tk * Tbk))
     end ~ call
 
-    kTpeak(Tk, Tbk, kT; Ha(u"kJ/mol"), Hd(u"kJ/mol"), ΔS(u"J/mol/K")): peaked_function => begin
-        kT(Ha) * (1 + exp((ΔS*Tbk - Hd) / (u"R"*Tbk))) / (1 + exp((ΔS*Tk - Hd) / (u"R"*Tk)))
+    kTpeak(Tk, Tbk, kT; Ea(u"kJ/mol"), H(u"kJ/mol"), ΔS(u"J/mol/K")): peaked_function => begin
+        kT(Ea) * (1 + exp((ΔS*Tbk - H) / (u"R"*Tbk))) / (1 + exp((ΔS*Tk - H) / (u"R"*Tk)))
     end ~ call
 
     ΔS(; Ha(u"kJ/mol"), Hd(u"kJ/mol"), To(u"K")): entropy_factor => begin
