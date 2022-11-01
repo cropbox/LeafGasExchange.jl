@@ -28,7 +28,7 @@
 end
 
 @system NitrogenDependence begin
-    N: leaf_nitrogen_content ~ hold
+    N: leaf_nitrogen_content => 4.0 ~ preserve(u"g/m^2", parameter)
 
     s => 2.9 ~ preserve(u"m^2/g", parameter)
     N0 => 0.25 ~ preserve(u"g/m^2", parameter)
