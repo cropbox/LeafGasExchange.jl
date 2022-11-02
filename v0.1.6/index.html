@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Home · LeafGasExchange.jl</title><script async src="https://www.googletagmanager.com/gtag/js?id=UA-192782823-1"></script><script>  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-192782823-1', {'page_path': location.pathname + location.search + location.hash});
+</script><script data-outdated-warner src="assets/warner.js"></script><link rel="canonical" href="https://cropbox.github.io/LeafGasExchange.jl/stable/"/><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.045/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.24/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="assets/documenter.js"></script><script src="siteinfo.js"></script><script src="../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="assets/themeswap.js"></script><link href="assets/favicon.ico" rel="icon" type="image/x-icon"/></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href><img src="assets/logo.svg" alt="LeafGasExchange.jl logo"/></a><div class="docs-package-name"><span class="docs-autofit"><a href>LeafGasExchange.jl</a></span></div><form class="docs-search" action="search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li class="is-active"><a class="tocitem" href>Home</a><ul class="internal"><li><a class="tocitem" href="#Installation"><span>Installation</span></a></li><li><a class="tocitem" href="#Getting-Started"><span>Getting Started</span></a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>Home</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Home</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/cropbox/LeafGasExchange.jl/blob/main/docs/src/index.md" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h1 id="LeafGasExchange.jl"><a class="docs-heading-anchor" href="#LeafGasExchange.jl">LeafGasExchange.jl</a><a id="LeafGasExchange.jl-1"></a><a class="docs-heading-anchor-permalink" href="#LeafGasExchange.jl" title="Permalink"></a></h1><p><a href="https://github.com/cropbox/LeafGasExchange.jl">LeafGasExchange.jl</a> implements a coupled leaf gas-exchange model using <a href="https://github.com/cropbox/Cropbox.jl">Cropbox</a> modeling framework. Biochemical photosynthesis models (C₃, C₄) are coupled with empirical stomatal conductance models (Ball–Berry, Medlyn) in addition to radiative energy balance model. Users can run model simulations with custom configuration and visualize simulation results. Model parameters may be calibrated with observation dataset if provided.</p><h2 id="Installation"><a class="docs-heading-anchor" href="#Installation">Installation</a><a id="Installation-1"></a><a class="docs-heading-anchor-permalink" href="#Installation" title="Permalink"></a></h2><pre><code class="language-julia hljs">using Pkg
+Pkg.add(&quot;LeafGasExchange&quot;)</code></pre><h2 id="Getting-Started"><a class="docs-heading-anchor" href="#Getting-Started">Getting Started</a><a id="Getting-Started-1"></a><a class="docs-heading-anchor-permalink" href="#Getting-Started" title="Permalink"></a></h2><pre><code class="language-julia hljs">using Cropbox
+using LeafGasExchange</code></pre><p>The package exports four combinations of model (<code>ModelC3BB</code>, <code>ModelC3MD</code>, <code>ModelC4BB</code>, <code>ModelC4MD</code>) from two photosynthesis models (<code>C3</code>, <code>C4</code>) and two stomatal conductance models (<code>BB</code> for Ball-Berry, <code>MD</code> for Medlyn).</p><pre><code class="language-julia hljs">parameters(ModelC4MD; alias = true)</code></pre><p style="font-family: monospace">Config for 1 system:</p>
+<table style="font-family: monospace">
+<tr style="background-color: transparent">
+<td colspan="3" style="text-align: left; padding: 2px; padding-left: 20px; color: rebeccapurple">ModelC4MD</th>
+</tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">photon_flux_density</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">nothing</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">carbon_dioxide</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">nothing</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">relative_humidity</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">nothing</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">air_temperature</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">nothing</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">wind_speed</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">nothing</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">air_pressure</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">100 kPa</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">SPAD_greenness</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">60</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">SPAD_N_coeff_a</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">0.0004 g m⁻²</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">SPAD_N_coeff_b</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">0.012 g m⁻²</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">SPAD_N_coeff_c</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">0 g m⁻²</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">leaf_nitrogen_content</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">4.0 g m⁻²</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">diffusion_coeff_for_water_vapor_in_air_at_20</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">24.2 mm² s⁻¹</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">diffusion_coeff_for_co2_in_air_at_20</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">14.7 mm² s⁻¹</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">diffusion_coeff_for_heat_in_air_at_20</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">21.5 mm² s⁻¹</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">diffusion_coeff_for_momentum_in_air_at_20</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">15.1 mm² s⁻¹</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">leaf_width</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">10 cm</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">stomatal_ratio</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">1.0</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">kinematic_viscosity_of_air</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">missing</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">thermal_diffusivity_of_air</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">missing</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">g0</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">0.02 mol bar⁻¹ m⁻² s⁻¹</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">g1</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">4.0 kPa¹ᐟ²</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">photosynthesis_transition_factor</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">0.99</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">diffusivity_ratio_boundary_layer</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">missing</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">diffusivity_ratio_air</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">missing</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">leaf_scattering</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">0.15</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">leaf_spectral_correction</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">0.15</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">leaf_thermal_emissivity</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">0.97</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">latent_heat_of_vaporization_at_25</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">44 kJ mol⁻¹</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">specific_heat_of_air</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">29.3 J K⁻¹ mol⁻¹</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">absorption_coefficient</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">0.5</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">leaf_water_potential</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">0 MPa</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">reference_leaf_water_potential</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">-2.0 MPa</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">stomata_sensitivity_param</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">2.3 MPa⁻¹</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">base_temperature</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">25 °C</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">Q10</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">2</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">s</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">2.9 m² g⁻¹</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">N0</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">0.25 g m⁻²</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">bundle_sheath_conductance</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">0.003 mol bar⁻¹ m⁻² s⁻¹</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">pep_carboxylase_constant_for_co2_at_25</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">80 μbar</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">maximum_pep_carboxylation_rate_for_co2_at_25</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">70 μmol m⁻² s⁻¹</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">activation_energy_for_pep_carboxylation</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">75.1 kJ mol⁻¹</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">pep_regeneration_rate_for_co2_at_25</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">80 μmol m⁻² s⁻¹</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">maximum_carboxylation_rate_at_25</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">50 μmol m⁻² s⁻¹</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">activation_energy_for_carboxylation</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">55.9 kJ mol⁻¹</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">maximum_electron_transport_rate_at_25</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">300 μmol m⁻² s⁻¹</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">activation_enthalpy_for_electron_transport</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">32.8 kJ mol⁻¹</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">deactivation_enthalpy_for_electron_transport</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">220 kJ mol⁻¹</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">sensitivity_for_electron_transport</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">702.6 J K⁻¹ mol⁻¹</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">light_transition_sharpness</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">0.5</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">rubisco_constant_for_co2_at_25</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">650 μbar</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">activation_energy_for_co2</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">59.4 kJ mol⁻¹</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">rubisco_constant_for_o2_at_25</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">450 mbar</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">activation_energy_for_o2</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">36 kJ mol⁻¹</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">mesophyll_o2_partial_pressure</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">210 mbar</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">dark_respiration_at_25</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">2 μmol m⁻² s⁻¹</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">activation_energy_for_respiration</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">39.8 kJ mol⁻¹</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">electron_transport_partitioning_factor</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">0.4</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">bundle_sheath_PSII_activity_fraction</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">0.0001</td></tr>
+<tr style="background-color: transparent"><td style="text-align: left; padding: 2px; padding-left: 40px; color: royalblue">Γ1</td><td style="text-align: center; padding: 2px 10px 2px 10px; color: gray">=</td><td style="text-align: left; padding: 2px;">0.193</td></tr>
+</table>
+<p>By default, most parameters are already filled in for a casual run, except driving variables which describe surrounding environment.</p><pre><code class="language-julia hljs">config = :Weather =&gt; (
+    PFD = 1500,
+    CO2 = 400,
+    RH = 60,
+    T_air = 30,
+    wind = 2.0,
+)</code></pre><p>Let&#39;s define a wide range of atmospheric CO₂ for simulation.</p><pre><code class="language-julia hljs">xstep = :Weather =&gt; :CO2 =&gt; 50:10:1500</code></pre><p>Then, net photosynthesis rate (<code>A_net</code>), Rubisco-limited rate (<code>Ac</code>), and electron transport-limited rate (<code>Aj</code>) responding to the range of CO₂ can be simulated and visualized in a plot.</p><pre><code class="language-julia hljs">visualize(ModelC4MD, :Ci, [:Ac, :Aj, :A_net]; config, xstep, kind = :line)</code></pre><?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:gadfly="http://www.gadflyjl.org/ns"
+     version="1.2"
+     width="141.42mm" height="100mm" viewBox="0 0 141.42 100"
+     stroke="none"
+     fill="#000000"
+     stroke-width="0.3"
+     font-size="3.88"
+>
+<defs>
+  <marker id="arrow" markerWidth="15" markerHeight="7" refX="5" refY="3.5" orient="auto" markerUnits="strokeWidth">
+    <path d="M0,0 L15,3.5 L0,7 z" stroke="context-stroke" fill="context-stroke"/>
+  </marker>
+</defs>
+<g stroke="#000000" stroke-opacity="0.000" fill="#FFFFFF" id="img-2eff3f4d-1">
+  <g transform="translate(70.71,50)">
+    <path d="M-70.71,-50 L70.71,-50 70.71,50 -70.71,50  z" class="primitive"/>
+  </g>
+</g>
+<g class="plotroot xscalable yscalable" id="img-2eff3f4d-2">
+  <g font-size="3.53" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="#000000" stroke-opacity="0.000" id="img-2eff3f4d-3">
+    <g transform="translate(71.34,93.72)">
+      <g class="primitive">
+        <text text-anchor="middle" dy="0.6em">Ci (μbar)</text>
+      </g>
+    </g>
+  </g>
+  <g class="guide xlabels" font-size="2.82" font-family="'PT Sans Caption','Helvetica Neue','Helvetica',sans-serif" fill="#6C606B" id="img-2eff3f4d-4">
+    <g transform="translate(72.52,87.04)">
+      <g class="primitive">
+        <text text-anchor="middle" dy="0.6em">500</text>
+      </g>
+    </g>
+  </g>
+  <g class="guide colorkey" id="img-2eff3f4d-5">
+    <g fill="#4C404B" font-size="2.82" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" id="img-2eff3f4d-6">
+      <g transform="translate(129.68,44.12)" id="img-2eff3f4d-7">
+        <g class="primitive">
+          <text dy="0.35em">Ac</text>
+        </g>
+      </g>
+      <g transform="translate(129.68,47.75)" id="img-2eff3f4d-8">
+        <g class="primitive">
+          <text dy="0.35em">Aj</text>
+        </g>
+      </g>
+      <g transform="translate(129.68,51.38)" id="img-2eff3f4d-9">
+        <g class="primitive">
+          <text dy="0.35em">A_net</text>
+        </g>
+      </g>
+    </g>
+    <g stroke-width="0.3" id="img-2eff3f4d-10">
+      <g stroke="#FFFFFF" stroke-opacity="0.000" fill-opacity="1" fill="#FF6DAE" id="img-2eff3f4d-11">
+        <g transform="translate(126.87,51.38)" id="img-2eff3f4d-12">
+          <circle cx="0" cy="0" r="0.7" class="primitive"/>
+        </g>
+      </g>
+      <g stroke="#FFFFFF" stroke-opacity="0.000" fill-opacity="1" fill="#D4CA3A" id="img-2eff3f4d-13">
+        <g transform="translate(126.87,47.75)" id="img-2eff3f4d-14">
+          <circle cx="0" cy="0" r="0.7" class="primitive"/>
+        </g>
+      </g>
+      <g stroke="#FFFFFF" stroke-opacity="0.000" fill-opacity="1" fill="#00BFFF" id="img-2eff3f4d-15">
+        <g transform="translate(126.87,44.12)" id="img-2eff3f4d-16">
+          <circle cx="0" cy="0" r="0.7" class="primitive"/>
+        </g>
+      </g>
+    </g>
+    <g fill="#362A35" font-size="3.18" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" stroke="#000000" stroke-opacity="0.000" id="img-2eff3f4d-17">
+      <g transform="translate(126.05,40.81)" id="img-2eff3f4d-18">
+        <g class="primitive">
+          <text dy="-0em"></text>
+        </g>
+      </g>
+    </g>
+  </g>
+  <g clip-path="url(#img-2eff3f4d-19)">
+    <g id="img-2eff3f4d-20">
+      <g pointer-events="visible" stroke-width="0.3" fill="#000000" fill-opacity="0.000" stroke="#000000" stroke-opacity="0.000" class="guide background" id="img-2eff3f4d-21">
+        <g transform="translate(71.34,45.52)" id="img-2eff3f4d-22">
+          <path d="M-53.71,-40.52 L53.71,-40.52 53.71,40.52 -53.71,40.52  z" class="primitive"/>
+        </g>
+      </g>
+      <g class="guide ygridlines xfixed" stroke-dasharray="0.5,0.5" stroke-width="0.2" stroke="#D0D0E0" id="img-2eff3f4d-23">
+        <g transform="translate(71.34,82.64)" id="img-2eff3f4d-24">
+          <path fill="none" d="M-53.71,0 L53.71,0 " class="primitive"/>
+        </g>
+        <g transform="translate(71.34,54.63)" id="img-2eff3f4d-25">
+          <path fill="none" d="M-53.71,0 L53.71,0 " class="primitive"/>
+        </g>
+        <g transform="translate(71.34,26.61)" id="img-2eff3f4d-26">
+          <path fill="none" d="M-53.71,0 L53.71,0 " class="primitive"/>
+        </g>
+      </g>
+      <g class="guide xgridlines yfixed" stroke-dasharray="0.5,0.5" stroke-width="0.2" stroke="#D0D0E0" id="img-2eff3f4d-27">
+        <g transform="translate(72.52,45.52)" id="img-2eff3f4d-28">
+          <path fill="none" d="M0,-40.52 L0,40.52 " class="primitive"/>
+        </g>
+      </g>
+      <g class="plotpanel" id="img-2eff3f4d-29">
+        <metadata>
+          <boundingbox value="17.629999999999995mm 5.0mm 107.42468957064284mm 81.04333333333334mm"/>
+          <unitbox value="12.228614776314327 75.427767922814 954.5427704473713 -57.855535845628005"/>
+        </metadata>
+        <g stroke-width="0.3" fill="#000000" fill-opacity="0.000" class="geometry" id="img-2eff3f4d-30">
+          <g class="color_LCHab{Float32}(70.0f0,60.0f0,240.0f0)" stroke-dasharray="none" stroke="#00BFFF" id="img-2eff3f4d-31">
+            <g transform="translate(70.86,20.58)" id="img-2eff3f4d-32">
+              <path fill="none" d="M-51.12,63.24 L-50.4,59.07 -49.68,55.25 -48.95,51.72 -48.21,48.45 -47.48,45.4 -46.75,42.55 -46.01,39.86 -45.28,37.31 -44.54,34.89 -43.81,32.58 -43.08,30.36 -42.36,28.21 -41.63,26.14 -40.91,24.13 -40.19,22.19 -39.48,20.3 -38.77,18.47 -38.06,16.69 -37.36,14.97 -36.65,13.29 -35.95,11.66 -35.25,10.07 -34.56,8.62 -33.86,8.11 -33.17,7.62 -32.48,7.13 -31.79,6.66 -31.1,6.21 -30.41,5.76 -29.73,5.33 -29.04,4.91 -28.35,4.5 -27.67,4.1 -26.98,3.72 -26.3,3.34 -25.61,2.97 -24.93,2.61 -24.24,2.26 -23.56,1.92 -22.87,1.59 -22.19,1.26 -21.5,0.95 -20.82,0.64 -20.13,0.34 -19.45,0.04 -18.76,-0.24 -18.08,-0.53 -17.39,-0.8 -16.7,-1.07 -16.02,-1.33 -15.33,-1.59 -14.64,-1.84 -13.95,-2.08 -13.27,-2.32 -12.58,-2.56 -11.89,-2.79 -11.2,-3.02 -10.51,-3.24 -9.82,-3.45 -9.13,-3.67 -8.43,-3.87 -7.74,-4.08 -7.05,-4.28 -6.36,-4.47 -5.66,-4.67 -4.97,-4.85 -4.27,-5.04 -3.57,-5.22 -2.88,-5.4 -2.18,-5.57 -1.48,-5.74 -0.78,-5.91 -0.08,-6.08 0.62,-6.24 1.32,-6.4 2.02,-6.56 2.72,-6.71 3.42,-6.86 4.13,-7.01 4.83,-7.16 5.53,-7.3 6.24,-7.44 6.95,-7.58 7.65,-7.72 8.36,-7.85 9.07,-7.99 9.78,-8.12 10.49,-8.25 11.2,-8.37 11.91,-8.5 12.62,-8.62 13.33,-8.74 14.04,-8.86 14.76,-8.98 15.47,-9.09 16.19,-9.2 16.9,-9.32 17.62,-9.43 18.34,-9.53 19.06,-9.64 19.78,-9.75 20.5,-9.85 21.22,-9.95 21.94,-10.05 22.66,-10.15 23.38,-10.25 24.11,-10.35 24.83,-10.44 25.56,-10.54 26.28,-10.63 27.01,-10.72 27.74,-10.81 28.46,-10.9 29.19,-10.99 29.92,-11.08 30.65,-11.16 31.38,-11.25 32.11,-11.33 32.84,-11.41 33.58,-11.49 34.31,-11.57 35.04,-11.65 35.78,-11.73 36.52,-11.81 37.25,-11.89 37.99,-11.96 38.73,-12.04 39.46,-12.11 40.2,-12.18 40.94,-12.25 41.68,-12.33 42.43,-12.4 43.17,-12.47 43.91,-12.53 44.66,-12.6 45.4,-12.67 46.14,-12.73 46.89,-12.8 47.64,-12.87 48.38,-12.93 49.13,-12.99 49.88,-13.06 50.63,-13.12 51.38,-13.18 52.13,-13.24 " class="primitive"/>
+            </g>
+          </g>
+        </g>
+        <g stroke-width="0.3" fill="#000000" fill-opacity="0.000" class="geometry" id="img-2eff3f4d-33">
+          <g class="color_LCHab{Float32}(80.0f0,70.000015f0,100.43479f0)" stroke-dasharray="none" stroke="#D4CA3A" id="img-2eff3f4d-34">
+            <g transform="translate(70.86,45.36)" id="img-2eff3f4d-35">
+              <path fill="none" d="M-51.12,4.88 L-50.4,4.78 -49.68,4.67 -48.95,4.56 -48.21,4.44 -47.48,4.32 -46.75,4.21 -46.01,4.09 -45.28,3.96 -44.54,3.83 -43.81,3.7 -43.08,3.57 -42.36,3.43 -41.63,3.29 -40.91,3.14 -40.19,3 -39.48,2.86 -38.77,2.72 -38.06,2.59 -37.36,2.46 -36.65,2.33 -35.95,2.21 -35.25,2.09 -34.56,1.97 -33.86,1.86 -33.17,1.75 -32.48,1.64 -31.79,1.54 -31.1,1.44 -30.41,1.35 -29.73,1.26 -29.04,1.17 -28.35,1.09 -27.67,1.01 -26.98,0.93 -26.3,0.86 -25.61,0.78 -24.93,0.71 -24.24,0.65 -23.56,0.58 -22.87,0.52 -22.19,0.46 -21.5,0.4 -20.82,0.34 -20.13,0.29 -19.45,0.24 -18.76,0.19 -18.08,0.14 -17.39,0.09 -16.7,0.04 -16.02,-0 -15.33,-0.05 -14.64,-0.09 -13.95,-0.13 -13.27,-0.17 -12.58,-0.21 -11.89,-0.25 -11.2,-0.28 -10.51,-0.32 -9.82,-0.36 -9.13,-0.39 -8.43,-0.42 -7.74,-0.45 -7.05,-0.48 -6.36,-0.52 -5.66,-0.54 -4.97,-0.57 -4.27,-0.6 -3.57,-0.63 -2.88,-0.66 -2.18,-0.68 -1.48,-0.71 -0.78,-0.73 -0.08,-0.76 0.62,-0.78 1.32,-0.8 2.02,-0.82 2.72,-0.85 3.42,-0.87 4.13,-0.89 4.83,-0.91 5.53,-0.93 6.24,-0.95 6.95,-0.97 7.65,-0.99 8.36,-1.01 9.07,-1.02 9.78,-1.04 10.49,-1.06 11.2,-1.08 11.91,-1.09 12.62,-1.11 13.33,-1.12 14.04,-1.14 14.76,-1.15 15.47,-1.17 16.19,-1.18 16.9,-1.2 17.62,-1.21 18.34,-1.23 19.06,-1.24 19.78,-1.25 20.5,-1.27 21.22,-1.28 21.94,-1.29 22.66,-1.3 23.38,-1.32 24.11,-1.33 24.83,-1.34 25.56,-1.35 26.28,-1.36 27.01,-1.37 27.74,-1.38 28.46,-1.39 29.19,-1.41 29.92,-1.42 30.65,-1.43 31.38,-1.44 32.11,-1.45 32.84,-1.45 33.58,-1.46 34.31,-1.47 35.04,-1.48 35.78,-1.49 36.52,-1.5 37.25,-1.51 37.99,-1.52 38.73,-1.53 39.46,-1.54 40.2,-1.54 40.94,-1.55 41.68,-1.56 42.43,-1.57 43.17,-1.57 43.91,-1.58 44.66,-1.59 45.4,-1.6 46.14,-1.6 46.89,-1.61 47.64,-1.62 48.38,-1.63 49.13,-1.63 49.88,-1.64 50.63,-1.65 51.38,-1.65 52.13,-1.66 " class="primitive"/>
+            </g>
+          </g>
+        </g>
+        <g stroke-width="0.3" fill="#000000" fill-opacity="0.000" class="geometry" id="img-2eff3f4d-36">
+          <g class="color_LCHab{Float32}(65.89944f0,62.21457f0,353.99814f0)" stroke-dasharray="none" stroke="#FF6DAE" id="img-2eff3f4d-37">
+            <g transform="translate(70.86,48.2)" id="img-2eff3f4d-38">
+              <path fill="none" d="M-51.12,35.82 L-50.4,31.76 -49.68,28.08 -48.95,24.72 -48.21,21.66 -47.48,18.87 -46.75,16.34 -46.01,14.06 -45.28,12.02 -44.54,10.22 -43.81,8.66 -43.08,7.33 -42.36,6.21 -41.63,5.28 -40.91,4.5 -40.19,3.85 -39.48,3.31 -38.77,2.84 -38.06,2.44 -37.36,2.09 -36.65,1.77 -35.95,1.49 -35.25,1.24 -34.56,1.02 -33.86,0.87 -33.17,0.74 -32.48,0.61 -31.79,0.49 -31.1,0.37 -30.41,0.25 -29.73,0.15 -29.04,0.04 -28.35,-0.06 -27.67,-0.16 -26.98,-0.25 -26.3,-0.34 -25.61,-0.43 -24.93,-0.51 -24.24,-0.59 -23.56,-0.67 -22.87,-0.74 -22.19,-0.82 -21.5,-0.89 -20.82,-0.95 -20.13,-1.02 -19.45,-1.08 -18.76,-1.14 -18.08,-1.2 -17.39,-1.26 -16.7,-1.32 -16.02,-1.37 -15.33,-1.42 -14.64,-1.47 -13.95,-1.52 -13.27,-1.57 -12.58,-1.62 -11.89,-1.66 -11.2,-1.71 -10.51,-1.75 -9.82,-1.79 -9.13,-1.83 -8.43,-1.87 -7.74,-1.91 -7.05,-1.94 -6.36,-1.98 -5.66,-2.01 -4.97,-2.05 -4.27,-2.08 -3.57,-2.11 -2.88,-2.15 -2.18,-2.18 -1.48,-2.21 -0.78,-2.24 -0.08,-2.27 0.62,-2.29 1.32,-2.32 2.02,-2.35 2.72,-2.37 3.42,-2.4 4.13,-2.43 4.83,-2.45 5.53,-2.47 6.24,-2.5 6.95,-2.52 7.65,-2.54 8.36,-2.56 9.07,-2.59 9.78,-2.61 10.49,-2.63 11.2,-2.65 11.91,-2.67 12.62,-2.69 13.33,-2.71 14.04,-2.72 14.76,-2.74 15.47,-2.76 16.19,-2.78 16.9,-2.79 17.62,-2.81 18.34,-2.83 19.06,-2.84 19.78,-2.86 20.5,-2.88 21.22,-2.89 21.94,-2.91 22.66,-2.92 23.38,-2.93 24.11,-2.95 24.83,-2.96 25.56,-2.98 26.28,-2.99 27.01,-3 27.74,-3.02 28.46,-3.03 29.19,-3.04 29.92,-3.05 30.65,-3.07 31.38,-3.08 32.11,-3.09 32.84,-3.1 33.58,-3.11 34.31,-3.12 35.04,-3.14 35.78,-3.15 36.52,-3.16 37.25,-3.17 37.99,-3.18 38.73,-3.19 39.46,-3.2 40.2,-3.21 40.94,-3.22 41.68,-3.23 42.43,-3.24 43.17,-3.25 43.91,-3.26 44.66,-3.26 45.4,-3.27 46.14,-3.28 46.89,-3.29 47.64,-3.3 48.38,-3.31 49.13,-3.32 49.88,-3.32 50.63,-3.33 51.38,-3.34 52.13,-3.35 " class="primitive"/>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+  <g class="guide ylabels" font-size="2.82" font-family="'PT Sans Caption','Helvetica Neue','Helvetica',sans-serif" fill="#6C606B" id="img-2eff3f4d-39">
+    <g transform="translate(16.63,82.64)" id="img-2eff3f4d-40">
+      <g class="primitive">
+        <text text-anchor="end" dy="0.35em">20</text>
+      </g>
+    </g>
+    <g transform="translate(16.63,54.63)" id="img-2eff3f4d-41">
+      <g class="primitive">
+        <text text-anchor="end" dy="0.35em">40</text>
+      </g>
+    </g>
+    <g transform="translate(16.63,26.61)" id="img-2eff3f4d-42">
+      <g class="primitive">
+        <text text-anchor="end" dy="0.35em">60</text>
+      </g>
+    </g>
+  </g>
+  <g font-size="3.53" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="#000000" stroke-opacity="0.000" id="img-2eff3f4d-43">
+    <g transform="translate(8.64,43.52)" id="img-2eff3f4d-44">
+      <g class="primitive">
+        <text text-anchor="middle" dy="0.35em" transform="rotate(-90,0, 2)"> (μmol m⁻² s⁻¹)</text>
+      </g>
+    </g>
+  </g>
+</g>
+<defs>
+  <clipPath id="img-2eff3f4d-19">
+    <path d="M17.63,5 L125.05,5 125.05,86.04 17.63,86.04 " />
+  </clipPath>
+</defs>
+</svg>
+<p>The output of simulation can be visualized in terms of other variables such as stomatal conductance (<code>gs</code>) whose coupling with photosynthesis  is solved via vapor pressure at the leaf surface.</p><pre><code class="language-julia hljs">visualize(ModelC4MD, :Ci, :gs; config, xstep, kind = :line)</code></pre><?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:gadfly="http://www.gadflyjl.org/ns"
+     version="1.2"
+     width="141.42mm" height="100mm" viewBox="0 0 141.42 100"
+     stroke="none"
+     fill="#000000"
+     stroke-width="0.3"
+     font-size="3.88"
+>
+<defs>
+  <marker id="arrow" markerWidth="15" markerHeight="7" refX="5" refY="3.5" orient="auto" markerUnits="strokeWidth">
+    <path d="M0,0 L15,3.5 L0,7 z" stroke="context-stroke" fill="context-stroke"/>
+  </marker>
+</defs>
+<g stroke="#000000" stroke-opacity="0.000" fill="#FFFFFF" id="img-9aabc4de-1">
+  <g transform="translate(70.71,50)">
+    <path d="M-70.71,-50 L70.71,-50 70.71,50 -70.71,50  z" class="primitive"/>
+  </g>
+</g>
+<g class="plotroot xscalable yscalable" id="img-9aabc4de-2">
+  <g font-size="3.53" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="#000000" stroke-opacity="0.000" id="img-9aabc4de-3">
+    <g transform="translate(76.19,93.72)">
+      <g class="primitive">
+        <text text-anchor="middle" dy="0.6em">Ci (μbar)</text>
+      </g>
+    </g>
+  </g>
+  <g class="guide xlabels" font-size="2.82" font-family="'PT Sans Caption','Helvetica Neue','Helvetica',sans-serif" fill="#6C606B" id="img-9aabc4de-4">
+    <g transform="translate(77.52,87.04)">
+      <g class="primitive">
+        <text text-anchor="middle" dy="0.6em">500</text>
+      </g>
+    </g>
+  </g>
+  <g clip-path="url(#img-9aabc4de-5)">
+    <g id="img-9aabc4de-6">
+      <g pointer-events="visible" stroke-width="0.3" fill="#000000" fill-opacity="0.000" stroke="#000000" stroke-opacity="0.000" class="guide background" id="img-9aabc4de-7">
+        <g transform="translate(76.19,45.52)" id="img-9aabc4de-8">
+          <path d="M-60.23,-40.52 L60.23,-40.52 60.23,40.52 -60.23,40.52  z" class="primitive"/>
+        </g>
+      </g>
+      <g class="guide ygridlines xfixed" stroke-dasharray="0.5,0.5" stroke-width="0.2" stroke="#D0D0E0" id="img-9aabc4de-9">
+        <g transform="translate(76.19,84.04)" id="img-9aabc4de-10">
+          <path fill="none" d="M-60.23,0 L60.23,0 " class="primitive"/>
+        </g>
+        <g transform="translate(76.19,68.63)" id="img-9aabc4de-11">
+          <path fill="none" d="M-60.23,0 L60.23,0 " class="primitive"/>
+        </g>
+        <g transform="translate(76.19,53.23)" id="img-9aabc4de-12">
+          <path fill="none" d="M-60.23,0 L60.23,0 " class="primitive"/>
+        </g>
+        <g transform="translate(76.19,37.82)" id="img-9aabc4de-13">
+          <path fill="none" d="M-60.23,0 L60.23,0 " class="primitive"/>
+        </g>
+        <g transform="translate(76.19,22.41)" id="img-9aabc4de-14">
+          <path fill="none" d="M-60.23,0 L60.23,0 " class="primitive"/>
+        </g>
+        <g transform="translate(76.19,7)" id="img-9aabc4de-15">
+          <path fill="none" d="M-60.23,0 L60.23,0 " class="primitive"/>
+        </g>
+      </g>
+      <g class="guide xgridlines yfixed" stroke-dasharray="0.5,0.5" stroke-width="0.2" stroke="#D0D0E0" id="img-9aabc4de-16">
+        <g transform="translate(77.52,45.52)" id="img-9aabc4de-17">
+          <path fill="none" d="M0,-40.52 L0,40.52 " class="primitive"/>
+        </g>
+      </g>
+      <g class="plotpanel" id="img-9aabc4de-18">
+        <metadata>
+          <boundingbox value="15.956666666666678mm 5.0mm 120.46468957064283mm 81.04333333333334mm"/>
+          <unitbox value="14.218392658101386 5.129797083892182 950.5632146837971 -5.259594167784364"/>
+        </metadata>
+        <g stroke-width="0.3" fill="#000000" fill-opacity="0.000" class="geometry" id="img-9aabc4de-19">
+          <g class="color_LCHab{Float32}(70.0f0,60.0f0,240.0f0)" stroke-dasharray="none" stroke="#00BFFF" id="img-9aabc4de-20">
+            <g transform="translate(75.65,74.09)" id="img-9aabc4de-21">
+              <path fill="none" d="M-57.57,-65.03 L-56.76,-58.66 -55.94,-52.94 -55.12,-47.86 -54.29,-43.34 -53.47,-39.3 -52.64,-35.67 -51.81,-32.39 -50.99,-29.39 -50.16,-26.64 -49.34,-24.1 -48.52,-21.74 -47.7,-19.56 -46.88,-17.56 -46.07,-15.73 -45.26,-14.07 -44.46,-12.56 -43.66,-11.2 -42.86,-9.97 -42.07,-8.86 -41.27,-7.85 -40.48,-6.93 -39.7,-6.1 -38.91,-5.34 -38.13,-4.62 -37.35,-3.96 -36.57,-3.36 -35.8,-2.81 -35.02,-2.3 -34.25,-1.83 -33.47,-1.4 -32.7,-0.99 -31.93,-0.62 -31.15,-0.26 -30.38,0.07 -29.61,0.37 -28.84,0.66 -28.07,0.94 -27.3,1.19 -26.53,1.44 -25.76,1.67 -24.98,1.88 -24.21,2.09 -23.44,2.29 -22.67,2.47 -21.9,2.65 -21.13,2.82 -20.36,2.98 -19.58,3.13 -18.81,3.28 -18.04,3.42 -17.26,3.56 -16.49,3.68 -15.71,3.81 -14.94,3.93 -14.16,4.04 -13.39,4.15 -12.61,4.26 -11.83,4.36 -11.05,4.46 -10.28,4.55 -9.5,4.64 -8.72,4.73 -7.94,4.82 -7.16,4.9 -6.37,4.98 -5.59,5.05 -4.81,5.13 -4.02,5.2 -3.24,5.27 -2.45,5.34 -1.67,5.4 -0.88,5.47 -0.09,5.53 0.69,5.59 1.48,5.65 2.27,5.71 3.06,5.76 3.85,5.81 4.65,5.87 5.44,5.92 6.23,5.97 7.03,6.02 7.82,6.06 8.62,6.11 9.41,6.15 10.21,6.2 11.01,6.24 11.81,6.28 12.61,6.32 13.41,6.36 14.21,6.4 15.01,6.44 15.82,6.47 16.62,6.51 17.42,6.55 18.23,6.58 19.04,6.61 19.84,6.65 20.65,6.68 21.46,6.71 22.27,6.74 23.08,6.77 23.89,6.8 24.7,6.83 25.52,6.86 26.33,6.89 27.15,6.92 27.96,6.94 28.78,6.97 29.6,6.99 30.41,7.02 31.23,7.04 32.05,7.07 32.87,7.09 33.69,7.12 34.51,7.14 35.34,7.16 36.16,7.18 36.99,7.21 37.81,7.23 38.64,7.25 39.46,7.27 40.29,7.29 41.12,7.31 41.95,7.33 42.78,7.35 43.61,7.37 44.44,7.39 45.27,7.41 46.11,7.42 46.94,7.44 47.78,7.46 48.61,7.48 49.45,7.49 50.29,7.51 51.12,7.53 51.96,7.54 52.8,7.56 53.64,7.58 54.48,7.59 55.33,7.61 56.17,7.62 57.01,7.64 57.86,7.65 58.7,7.67 " class="primitive"/>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+  <g class="guide ylabels" font-size="2.82" font-family="'PT Sans Caption','Helvetica Neue','Helvetica',sans-serif" fill="#6C606B" id="img-9aabc4de-22">
+    <g transform="translate(14.96,84.04)" id="img-9aabc4de-23">
+      <g class="primitive">
+        <text text-anchor="end" dy="0.35em">0</text>
+      </g>
+    </g>
+    <g transform="translate(14.96,68.63)" id="img-9aabc4de-24">
+      <g class="primitive">
+        <text text-anchor="end" dy="0.35em">1</text>
+      </g>
+    </g>
+    <g transform="translate(14.96,53.23)" id="img-9aabc4de-25">
+      <g class="primitive">
+        <text text-anchor="end" dy="0.35em">2</text>
+      </g>
+    </g>
+    <g transform="translate(14.96,37.82)" id="img-9aabc4de-26">
+      <g class="primitive">
+        <text text-anchor="end" dy="0.35em">3</text>
+      </g>
+    </g>
+    <g transform="translate(14.96,22.41)" id="img-9aabc4de-27">
+      <g class="primitive">
+        <text text-anchor="end" dy="0.35em">4</text>
+      </g>
+    </g>
+    <g transform="translate(14.96,7)" id="img-9aabc4de-28">
+      <g class="primitive">
+        <text text-anchor="end" dy="0.35em">5</text>
+      </g>
+    </g>
+  </g>
+  <g font-size="3.53" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="#000000" stroke-opacity="0.000" id="img-9aabc4de-29">
+    <g transform="translate(8.64,43.52)" id="img-9aabc4de-30">
+      <g class="primitive">
+        <text text-anchor="middle" dy="0.35em" transform="rotate(-90,0, 2)">gs (mol bar⁻¹ m⁻² s⁻¹)</text>
+      </g>
+    </g>
+  </g>
+</g>
+<defs>
+  <clipPath id="img-9aabc4de-5">
+    <path d="M15.96,5 L136.42,5 136.42,86.04 15.96,86.04 " />
+  </clipPath>
+</defs>
+</svg>
+<p>Similarly, we can visualize changes in leaf temperature (<code>T</code>) which has to be numerically optimized through energy balance equation.</p><pre><code class="language-julia hljs">visualize(ModelC4MD, :Ci, :T; config, xstep, kind = :line)</code></pre><?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:gadfly="http://www.gadflyjl.org/ns"
+     version="1.2"
+     width="141.42mm" height="100mm" viewBox="0 0 141.42 100"
+     stroke="none"
+     fill="#000000"
+     stroke-width="0.3"
+     font-size="3.88"
+>
+<defs>
+  <marker id="arrow" markerWidth="15" markerHeight="7" refX="5" refY="3.5" orient="auto" markerUnits="strokeWidth">
+    <path d="M0,0 L15,3.5 L0,7 z" stroke="context-stroke" fill="context-stroke"/>
+  </marker>
+</defs>
+<g stroke="#000000" stroke-opacity="0.000" fill="#FFFFFF" id="img-3185a7f2-1">
+  <g transform="translate(70.71,50)">
+    <path d="M-70.71,-50 L70.71,-50 70.71,50 -70.71,50  z" class="primitive"/>
+  </g>
+</g>
+<g class="plotroot xscalable yscalable" id="img-3185a7f2-2">
+  <g font-size="3.53" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="#000000" stroke-opacity="0.000" id="img-3185a7f2-3">
+    <g transform="translate(77.03,93.72)">
+      <g class="primitive">
+        <text text-anchor="middle" dy="0.6em">Ci (μbar)</text>
+      </g>
+    </g>
+  </g>
+  <g class="guide xlabels" font-size="2.82" font-family="'PT Sans Caption','Helvetica Neue','Helvetica',sans-serif" fill="#6C606B" id="img-3185a7f2-4">
+    <g transform="translate(78.34,87.04)">
+      <g class="primitive">
+        <text text-anchor="middle" dy="0.6em">500</text>
+      </g>
+    </g>
+  </g>
+  <g clip-path="url(#img-3185a7f2-5)">
+    <g id="img-3185a7f2-6">
+      <g pointer-events="visible" stroke-width="0.3" fill="#000000" fill-opacity="0.000" stroke="#000000" stroke-opacity="0.000" class="guide background" id="img-3185a7f2-7">
+        <g transform="translate(77.03,45.52)" id="img-3185a7f2-8">
+          <path d="M-59.4,-40.52 L59.4,-40.52 59.4,40.52 -59.4,40.52  z" class="primitive"/>
+        </g>
+      </g>
+      <g class="guide ygridlines xfixed" stroke-dasharray="0.5,0.5" stroke-width="0.2" stroke="#D0D0E0" id="img-3185a7f2-9">
+        <g transform="translate(77.03,84.04)" id="img-3185a7f2-10">
+          <path fill="none" d="M-59.4,0 L59.4,0 " class="primitive"/>
+        </g>
+        <g transform="translate(77.03,71.2)" id="img-3185a7f2-11">
+          <path fill="none" d="M-59.4,0 L59.4,0 " class="primitive"/>
+        </g>
+        <g transform="translate(77.03,58.36)" id="img-3185a7f2-12">
+          <path fill="none" d="M-59.4,0 L59.4,0 " class="primitive"/>
+        </g>
+        <g transform="translate(77.03,45.52)" id="img-3185a7f2-13">
+          <path fill="none" d="M-59.4,0 L59.4,0 " class="primitive"/>
+        </g>
+        <g transform="translate(77.03,32.68)" id="img-3185a7f2-14">
+          <path fill="none" d="M-59.4,0 L59.4,0 " class="primitive"/>
+        </g>
+        <g transform="translate(77.03,19.84)" id="img-3185a7f2-15">
+          <path fill="none" d="M-59.4,0 L59.4,0 " class="primitive"/>
+        </g>
+        <g transform="translate(77.03,7)" id="img-3185a7f2-16">
+          <path fill="none" d="M-59.4,0 L59.4,0 " class="primitive"/>
+        </g>
+      </g>
+      <g class="guide xgridlines yfixed" stroke-dasharray="0.5,0.5" stroke-width="0.2" stroke="#D0D0E0" id="img-3185a7f2-17">
+        <g transform="translate(78.34,45.52)" id="img-3185a7f2-18">
+          <path fill="none" d="M0,-40.52 L0,40.52 " class="primitive"/>
+        </g>
+      </g>
+      <g class="plotpanel" id="img-3185a7f2-19">
+        <metadata>
+          <boundingbox value="17.629999999999995mm 5.0mm 118.79135623730951mm 81.04333333333334mm"/>
+          <unitbox value="13.988341454906408 31.15575650067062 951.0233170901871 -6.311513001341236"/>
+        </metadata>
+        <g stroke-width="0.3" fill="#000000" fill-opacity="0.000" class="geometry" id="img-3185a7f2-20">
+          <g class="color_LCHab{Float32}(70.0f0,60.0f0,240.0f0)" stroke-dasharray="none" stroke="#00BFFF" id="img-3185a7f2-21">
+            <g transform="translate(76.49,29.95)" id="img-3185a7f2-22">
+              <path fill="none" d="M-56.74,46.86 L-55.94,46 -55.14,45.1 -54.33,44.17 -53.51,43.22 -52.7,42.24 -51.88,41.25 -51.07,40.23 -50.25,39.18 -49.44,38.1 -48.63,36.98 -47.82,35.81 -47.01,34.62 -46.21,33.39 -45.41,32.15 -44.61,30.9 -43.82,29.66 -43.03,28.44 -42.24,27.23 -41.46,26.05 -40.68,24.9 -39.9,23.78 -39.13,22.68 -38.36,21.62 -37.59,20.55 -36.82,19.52 -36.05,18.52 -35.28,17.55 -34.52,16.62 -33.75,15.71 -32.99,14.84 -32.23,13.99 -31.47,13.17 -30.71,12.37 -29.95,11.6 -29.19,10.85 -28.43,10.12 -27.67,9.42 -26.91,8.73 -26.15,8.07 -25.39,7.42 -24.63,6.79 -23.87,6.18 -23.11,5.58 -22.34,5 -21.58,4.44 -20.82,3.89 -20.06,3.35 -19.3,2.83 -18.54,2.32 -17.78,1.82 -17.01,1.34 -16.25,0.87 -15.49,0.41 -14.72,-0.04 -13.96,-0.48 -13.19,-0.91 -12.43,-1.33 -11.66,-1.74 -10.9,-2.14 -10.13,-2.53 -9.36,-2.91 -8.59,-3.29 -7.82,-3.66 -7.05,-4.02 -6.28,-4.37 -5.51,-4.71 -4.74,-5.05 -3.97,-5.38 -3.19,-5.7 -2.42,-6.02 -1.64,-6.33 -0.87,-6.63 -0.09,-6.93 0.68,-7.22 1.46,-7.51 2.24,-7.79 3.02,-8.07 3.8,-8.34 4.58,-8.61 5.36,-8.87 6.14,-9.13 6.93,-9.38 7.71,-9.63 8.49,-9.87 9.28,-10.11 10.06,-10.34 10.85,-10.57 11.64,-10.8 12.43,-11.02 13.22,-11.24 14.01,-11.46 14.8,-11.67 15.59,-11.88 16.38,-12.08 17.17,-12.29 17.97,-12.48 18.76,-12.68 19.56,-12.87 20.35,-13.06 21.15,-13.25 21.95,-13.43 22.75,-13.61 23.55,-13.79 24.35,-13.97 25.15,-14.14 25.95,-14.31 26.76,-14.48 27.56,-14.64 28.36,-14.81 29.17,-14.97 29.98,-15.13 30.78,-15.28 31.59,-15.43 32.4,-15.59 33.21,-15.74 34.02,-15.88 34.83,-16.03 35.64,-16.17 36.45,-16.31 37.27,-16.45 38.08,-16.59 38.9,-16.73 39.71,-16.86 40.53,-16.99 41.34,-17.13 42.16,-17.25 42.98,-17.38 43.8,-17.51 44.62,-17.63 45.44,-17.75 46.27,-17.87 47.09,-17.99 47.91,-18.11 48.74,-18.23 49.56,-18.34 50.39,-18.46 51.22,-18.57 52.04,-18.68 52.87,-18.79 53.7,-18.9 54.53,-19.01 55.36,-19.11 56.19,-19.22 57.03,-19.32 57.86,-19.42 " class="primitive"/>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+  <g class="guide ylabels" font-size="2.82" font-family="'PT Sans Caption','Helvetica Neue','Helvetica',sans-serif" fill="#6C606B" id="img-3185a7f2-23">
+    <g transform="translate(16.63,84.04)" id="img-3185a7f2-24">
+      <g class="primitive">
+        <text text-anchor="end" dy="0.35em">25</text>
+      </g>
+    </g>
+    <g transform="translate(16.63,71.2)" id="img-3185a7f2-25">
+      <g class="primitive">
+        <text text-anchor="end" dy="0.35em">26</text>
+      </g>
+    </g>
+    <g transform="translate(16.63,58.36)" id="img-3185a7f2-26">
+      <g class="primitive">
+        <text text-anchor="end" dy="0.35em">27</text>
+      </g>
+    </g>
+    <g transform="translate(16.63,45.52)" id="img-3185a7f2-27">
+      <g class="primitive">
+        <text text-anchor="end" dy="0.35em">28</text>
+      </g>
+    </g>
+    <g transform="translate(16.63,32.68)" id="img-3185a7f2-28">
+      <g class="primitive">
+        <text text-anchor="end" dy="0.35em">29</text>
+      </g>
+    </g>
+    <g transform="translate(16.63,19.84)" id="img-3185a7f2-29">
+      <g class="primitive">
+        <text text-anchor="end" dy="0.35em">30</text>
+      </g>
+    </g>
+    <g transform="translate(16.63,7)" id="img-3185a7f2-30">
+      <g class="primitive">
+        <text text-anchor="end" dy="0.35em">31</text>
+      </g>
+    </g>
+  </g>
+  <g font-size="3.53" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="#000000" stroke-opacity="0.000" id="img-3185a7f2-31">
+    <g transform="translate(8.64,43.52)" id="img-3185a7f2-32">
+      <g class="primitive">
+        <text text-anchor="middle" dy="0.35em" transform="rotate(-90,0, 2)">T (°C)</text>
+      </g>
+    </g>
+  </g>
+</g>
+<defs>
+  <clipPath id="img-3185a7f2-5">
+    <path d="M17.63,5 L136.42,5 136.42,86.04 17.63,86.04 " />
+  </clipPath>
+</defs>
+</svg>
+<p>For more information about using the framework such as <code>parameters()</code> and <code>visualize()</code> functions, please refer to the <a href="http://cropbox.github.io/Cropbox.jl/stable/">Cropbox documentation</a>.</p></article><nav class="docs-footer"><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.23 on <span class="colophon-date" title="Wednesday 2 November 2022 08:23">Wednesday 2 November 2022</span>. Using Julia version 1.8.2.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
