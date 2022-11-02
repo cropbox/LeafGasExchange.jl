@@ -117,6 +117,21 @@ ge_water = :StomataTuzet => (
 
 ge_base = (ge_weather, ge_spad, ge_water)
 
+ge_canopy = @config(
+    ge_base,
+    :Sun => (;
+        d = 1,
+        h = 12,
+    ),
+    :Canopy => (;
+        LAI = 5,
+    ),
+    :Radiation => (;
+        leaf_angle_factor = 3,
+        leaf_angle = LeafGasExchange.horizontal,
+    )
+)
+
 #HACK: zero CO2 prevents convergence of bisection method
 ge_step_c = :Weather => :CO2 => 10:10:1500
 ge_step_q = :Weather => :PFD => 0:20:2000
@@ -159,4 +174,34 @@ ge_step_t = :Weather => :T_air => -10:1:50
             ystep=:StomataTuzet=>:WP_leaf=>-2:0.05:0,
         ) |> display
     end
+
+    @testset "canopy" begin
+        @testset "C3" begin
+            @testset "CO2" begin
+                visualize(LeafGasExchange.ModelC3MDC, "weather.CO2", [:A_net, "sunlit_gasexchange.A_net", "shaded_gasexchange.A_net"]; config = ge_canopy, xstep = ge_step_c) |> println
+            end
+    
+            @testset "PFD" begin
+                visualize(LeafGasExchange.ModelC3MDC, "weather.PFD", [:A_net, "sunlit_gasexchange.A_net", "shaded_gasexchange.A_net"]; config = ge_canopy, xstep = ge_step_q) |> println
+            end
+    
+            @testset "T_air" begin
+                visualize(LeafGasExchange.ModelC3MDC, "weather.T_air", [:A_net, "sunlit_gasexchange.A_net", "shaded_gasexchange.A_net"]; config = ge_canopy, xstep = ge_step_t) |> println
+            end
+        end
+    
+        @testset "C4" begin
+            @testset "CO2" begin
+                visualize(LeafGasExchange.ModelC4MDC, "weather.CO2", [:A_net, "sunlit_gasexchange.A_net", "shaded_gasexchange.A_net"]; config = ge_canopy, xstep = ge_step_c) |> println
+            end
+    
+            @testset "PFD" begin
+                visualize(LeafGasExchange.ModelC4MDC, "weather.PFD", [:A_net, "sunlit_gasexchange.A_net", "shaded_gasexchange.A_net"]; config = ge_canopy, xstep = ge_step_q) |> println
+            end
+    
+            @testset "T_air" begin
+                visualize(LeafGasExchange.ModelC4MDC, "weather.T_air", [:A_net, "sunlit_gasexchange.A_net", "shaded_gasexchange.A_net"]; config = ge_canopy, xstep = ge_step_t) |> println
+            end
+        end
+    end    
 end
