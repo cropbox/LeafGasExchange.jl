@@ -30,4 +30,6 @@ export ModelC3BB, ModelC3MD, ModelC4BB, ModelC4MD
 
 include("canopy.jl")
 
+include("precompile.jl")
+
 end
