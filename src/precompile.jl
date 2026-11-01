@@ -40,15 +40,16 @@ PrecompileTools.@compile_workload begin
     )
 
     xstep = :Weather => :CO2 => 100:100:1000
+    backends = (:UnicodePlots, isdefined(Cropbox, :Makie) ? :Makie : :Gadfly)
 
     for m in (ModelC3BB, ModelC3MD, ModelC4BB, ModelC4MD)
-        for backend in (:UnicodePlots, :Gadfly)
+        for backend in backends
             visualize(m, :Ci, :A_net; config = ge_base, xstep, backend)
         end
     end
 
     for m in (ModelC3BBC, ModelC3MDC, ModelC4BBC, ModelC4MDC)
-        for backend in (:UnicodePlots, :Gadfly)
+        for backend in backends
             visualize(m, "weather.CO2", :A_net; config = ge_canopy, xstep, backend)
         end
     end
